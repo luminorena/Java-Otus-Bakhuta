@@ -1,19 +1,70 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
+
 plugins {
-    java
+    idea
+    id("io.spring.dependency-management")
+    id("org.springframework.boot") apply false
+    id("com.diffplug.spotless")
 }
 
-group = "org.tasks"
-version = "1.0"
-
-repositories {
-    mavenCentral()
+idea {
+    project {
+        languageLevel = IdeaLanguageLevel(17)
+    }
+    module {
+        isDownloadJavadoc = true
+        isDownloadSources = true
+    }
 }
 
-dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+
+allprojects {
+    group = "org.tasks"
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    val guava: String by project
+
+
+    apply(plugin = "io.spring.dependency-management")
+    dependencyManagement {
+        dependencies {
+            imports {
+                mavenBom(BOM_COORDINATES)
+            }
+            dependency("com.google.guava:guava:$guava")
+        }
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            failOnVersionConflict()
+
+        }
+    }
 }
 
-tasks.getByName<Test>("test") {
-    useJUnitPlatform()
+subprojects {
+    plugins.apply(JavaPlugin::class.java)
+    extensions.configure<JavaPluginExtension> {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    tasks.withType<JavaCompile> {
+        options.encoding = "UTF-8"
+    }
+
+    apply<com.diffplug.gradle.spotless.SpotlessPlugin>()
+    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+        java {
+            googleJavaFormat("1.16.0").aosp()
+        }
+    }
+
 }
+
