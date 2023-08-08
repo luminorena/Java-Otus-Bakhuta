@@ -1,8 +1,6 @@
 package homework;
 
-
 import java.util.Objects;
-
 
 public class Customer implements Cloneable {
     private final long id;
@@ -12,7 +10,6 @@ public class Customer implements Cloneable {
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
-
     }
 
     // todo: 1. в этом классе надо исправить ошибки
@@ -26,7 +23,6 @@ public class Customer implements Cloneable {
     public static Customer copyOf(Customer customer) {
         return new Customer(customer.getId(), customer.getName(), customer.getScores());
     }
-
 
     public long getId() {
         return id;
@@ -65,5 +61,4 @@ public class Customer implements Cloneable {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }

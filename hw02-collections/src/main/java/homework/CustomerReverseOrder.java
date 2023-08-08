@@ -11,15 +11,11 @@ public class CustomerReverseOrder {
 
     public void add(Customer customer) {
         deque.offerLast(customer);
-
     }
 
     public Customer take() {
         return deque.removeLast();
-
-
     }
-
 
     public static void main(String[] args) {
         CustomerReverseOrder order = new CustomerReverseOrder();
