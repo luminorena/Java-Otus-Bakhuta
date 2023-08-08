@@ -21,9 +21,6 @@ public class CustomerReverseOrder {
     }
 
 
-
-
-
     public static void main(String[] args) {
         CustomerReverseOrder order = new CustomerReverseOrder();
         Customer customer1 = new Customer(1, "Ivan", 233);
