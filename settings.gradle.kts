@@ -15,3 +15,4 @@ pluginManagement {
         id("com.diffplug.spotless") version spotless
     }
 }
+include("hw03-annotations")
