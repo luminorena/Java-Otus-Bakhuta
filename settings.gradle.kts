@@ -16,3 +16,4 @@ pluginManagement {
     }
 }
 include("hw02-collections")
+include("hw03-annotations")
