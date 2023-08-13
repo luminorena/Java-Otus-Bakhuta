@@ -20,7 +20,7 @@ public class ComparatorTests {
     }
 
     @Test
-    public static void greaterTest() {
+    public void greaterTest() {
         int a = 12;
         int b = 10;
         boolean greater = Comparator.isGreater(a, b);
@@ -30,7 +30,7 @@ public class ComparatorTests {
     }
 
     @Test
-    public static void lessTest() {
+    public void lessTest() {
         int a = 9;
         int b = 16;
         boolean less = Comparator.isLess(a, b);
@@ -40,7 +40,7 @@ public class ComparatorTests {
     }
 
     @After
-    public static void after() {
+    public void after() {
         comparator = null;
         System.out.println("Comparator is destroyed");
     }
