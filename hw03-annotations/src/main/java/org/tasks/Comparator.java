@@ -1,7 +1,5 @@
 package org.tasks;
 
-import org.tasks.annotations.ErrorGeneration;
-import org.tasks.annotations.Test;
 
 public class Comparator {
     int a;
@@ -12,11 +10,11 @@ public class Comparator {
         this.b = b;
     }
 
-    public static boolean isGreater(int a, int b) {
+    public boolean isGreater(int a, int b) {
         return a > b;
     }
 
-    public static boolean isLess(int a, int b) {
+    public boolean isLess(int a, int b) {
         return a < b;
     }
 

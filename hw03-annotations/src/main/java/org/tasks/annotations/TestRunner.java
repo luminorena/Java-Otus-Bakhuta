@@ -1,42 +1,68 @@
 package org.tasks.annotations;
 
-import org.tasks.ComparatorTests;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 
 public class TestRunner {
-    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public ArrayList<Method> beforeEachList = new ArrayList<>();
+    public ArrayList<Method> afterEachList = new ArrayList<>();
+    public ArrayList<Method> testsList = new ArrayList<>();
+    public int tests = 0;
+    public int passed = 0;
+    public static TestRunner testRunner = new TestRunner();
 
-        Class<?> testClass = ComparatorTests.class;
-        run(testClass);
-    }
 
-    public static void run(Class testClass) throws
-            NoSuchMethodException, InvocationTargetException,
-            InstantiationException, IllegalAccessException {
-        int tests = 0;
-        int passed = 0;
-        for (Method m : testClass.getDeclaredMethods()) {
-            final var constructor = testClass.getConstructor();
-            final var newInstance = constructor.newInstance();
-            if (m.isAnnotationPresent(Test.class) || m.isAnnotationPresent(Before.class) || m.isAnnotationPresent(After.class)) {
-                tests++;
-                try {
-                    m.invoke(newInstance);
-                    passed++;
-                } catch (InvocationTargetException targetException) {
-                    Throwable e = targetException.getCause();
-                    System.out.println(m + " failed: " + e);
-                } catch (IllegalAccessException exc) {
-                    System.out.println("Invalid @Test: " + m);
+    public void chooseAnnotation(Class testClass) {
+        final var declaredMethods = testClass.getDeclaredMethods();
+        for (Method method : declaredMethods) {
+            for (Annotation annotation :
+                    method.getDeclaredAnnotations()) {
+                switch (annotation.annotationType().getSimpleName()) {
+                    case "BeforeEach" -> beforeEachList.add(method);
+                    case "Test" -> testRunner.testsList.add(method);
+                    case "AfterEach" -> testRunner.afterEachList.add(method);
                 }
             }
+        }
 
+    }
+
+
+    public void run(Class testRunner) throws InvocationTargetException,
+            InstantiationException, IllegalAccessException, NoSuchMethodException {
+        final var constructor = testRunner.getConstructor();
+        final var newInstance = constructor.newInstance();
+        for (Method test : testsList) {
+            try {
+                tests++;
+                for (Method before : beforeEachList) {
+                    try {
+                        before.invoke(newInstance);
+                    } catch (InvocationTargetException error) {
+                        error.getTargetException().printStackTrace();
+                    }
+                }
+                System.out.println("Test to invoke now: " + test.getName());
+                test.invoke(newInstance);
+                passed++;
+                for (Method after : afterEachList) {
+                    try {
+                        after.invoke(newInstance);
+                    } catch (InvocationTargetException error) {
+                        error.getTargetException().printStackTrace();
+                    }
+                }
+            } catch (InvocationTargetException error) {
+                error.getTargetException().printStackTrace();
+            }
         }
         System.out.printf("Passed: %d, Failed: %d%n",
                 passed, tests - passed);
 
     }
+
 }

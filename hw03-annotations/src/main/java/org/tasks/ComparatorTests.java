@@ -1,17 +1,17 @@
 package org.tasks;
 
 
-import org.tasks.annotations.After;
-import org.tasks.annotations.Before;
+import org.tasks.annotations.AfterEach;
+import org.tasks.annotations.BeforeEach;
 import org.tasks.annotations.ErrorGeneration;
 import org.tasks.annotations.Test;
 
 
 public class ComparatorTests {
-    private static Comparator comparator;
+    private Comparator comparator;
 
-    @Before
-    public static void before() {
+    @BeforeEach
+    public void before() {
         comparator = new Comparator(12, 1);
         if (comparator != null) {
             System.out.println("Comparator exists");
@@ -23,7 +23,7 @@ public class ComparatorTests {
     public void greaterTest() {
         int a = 12;
         int b = 10;
-        boolean greater = Comparator.isGreater(a, b);
+        boolean greater = comparator.isGreater(a, b);
         if (!greater) {
             throw new ErrorGeneration("The number " + a + " is not greater than " + b);
         }
@@ -33,13 +33,13 @@ public class ComparatorTests {
     public void lessTest() {
         int a = 9;
         int b = 16;
-        boolean less = Comparator.isLess(a, b);
+        boolean less = comparator.isLess(a, b);
         if (!less) {
             throw new ErrorGeneration("The number " + a + " is not less than " + b);
         }
     }
 
-    @After
+    @AfterEach
     public void after() {
         comparator = null;
         System.out.println("Comparator is destroyed");
