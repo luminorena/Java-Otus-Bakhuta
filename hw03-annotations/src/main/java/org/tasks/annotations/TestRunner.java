@@ -35,9 +35,9 @@ public class TestRunner {
     public void run(Class testRunner) throws InvocationTargetException,
             InstantiationException, IllegalAccessException, NoSuchMethodException {
         final var constructor = testRunner.getConstructor();
-        final var newInstance = constructor.newInstance();
         for (Method test : testsList) {
             try {
+                final var newInstance = constructor.newInstance();
                 tests++;
                 for (Method before : beforeEachList) {
                     try {
