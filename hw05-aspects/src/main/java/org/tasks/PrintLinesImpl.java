@@ -2,6 +2,7 @@ package org.tasks;
 
 public class PrintLinesImpl implements PrintLinesInterface{
 
+    @Log
     @Override
     public void printInteger(int printValue) {
         System.out.println("print integer line: " + printValue);

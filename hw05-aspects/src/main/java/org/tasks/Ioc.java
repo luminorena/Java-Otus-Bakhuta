@@ -3,12 +3,12 @@ package org.tasks;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Ioc {
-    private static final List<Method> methods = new ArrayList<>();
+    private static final Set<Method> methods = new HashSet<>();
     private static final Class<?> clazz = PrintLinesInterface.class;
     private Ioc() {}
 
