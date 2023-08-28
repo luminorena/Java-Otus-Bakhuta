@@ -1,5 +1,4 @@
 rootProject.name = "Java-Otus-Bakhuta"
-include("hw01-gradle")
 
 
 pluginManagement {

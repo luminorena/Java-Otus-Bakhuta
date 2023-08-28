@@ -4,11 +4,12 @@ plugins {
     id ("com.github.johnrengelman.shadow")
 }
 
-dependencies {
-    implementation ("com.google.guava:guava")
-    implementation("com.github.javafaker:javafaker:1.0.2")
+val faker: String by project
 
+dependencies {
+    implementation("com.github.javafaker:javafaker:$faker")
 }
+
 
 tasks {
     named<ShadowJar>("shadowJar") {

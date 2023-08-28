@@ -1,10 +1,17 @@
 package org.tasks;
 
 public class Runner {
+
+    static PrintLinesInterface printLinesInterface;
+
+    static {
+        printLinesInterface = Ioc.createPrintLines();
+    }
+
     public static void main(String[] args) {
         var dataHelper = new DataHelper();
-        PrintLinesInterface printLinesInterface = Ioc.createPrintLines();
         printLinesInterface.printInteger(dataHelper.rndInt);
         printLinesInterface.printStrings(dataHelper.name, dataHelper.email);
     }
+
 }
