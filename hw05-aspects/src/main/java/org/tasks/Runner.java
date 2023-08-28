@@ -2,7 +2,7 @@ package org.tasks;
 
 public class Runner {
 
-    static PrintLinesInterface printLinesInterface;
+    final static PrintLinesInterface printLinesInterface;
 
     static {
         printLinesInterface = Ioc.createPrintLines();
