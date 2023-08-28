@@ -1,5 +1,4 @@
 rootProject.name = "Java-Otus-Bakhuta"
-include("hw01-gradle")
 
 
 pluginManagement {
@@ -15,3 +14,4 @@ pluginManagement {
         id("com.diffplug.spotless") version spotless
     }
 }
+include("hw05-aspects")
