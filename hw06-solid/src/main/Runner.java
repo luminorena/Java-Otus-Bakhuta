@@ -1,12 +1,9 @@
 package main;
 
-import java.io.IOException;
-
 public class Runner {
-    public static void main(String[] args) throws IOException {
-        ATMRunner atmRunner = new ATMRunner();
-        atmRunner.getInitialAtmMoney();
-        atmRunner.withdrawMoney();
+    public static void main(String[] args)  {
+        ATMRunner atmRunner = new ATMRunner(1200);
+        atmRunner.withdrawMoney(750);
         atmRunner.calculateRest();
     }
 }
