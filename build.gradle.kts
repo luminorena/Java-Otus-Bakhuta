@@ -38,6 +38,7 @@ allprojects {
             }
             dependency("com.google.guava:guava:$guava")
         }
+
     }
 
     configurations.all {
